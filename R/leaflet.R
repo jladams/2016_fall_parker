@@ -7,6 +7,7 @@ leaflet() %>%
                    color = "black",
                    fillColor = ~pal(room_type),
                    fillOpacity = 1,
+                   radius = 5,
                    popup = ~paste0("<img src='",thumbnail_url,"'</img></br>",
                                    "<b><a href='",listing_url,"' target='_blank'>",name,"</a></b></br>",
                                    "Host: ",host_name,"</br>",
