@@ -9,7 +9,7 @@ library(leaflet)
 library(shiny)
 
 # Read in data, clean price field
-listings <- read_csv("../data/listings.csv")
+listings <- read_csv("./data/listings.csv")
 listings$price <- as.numeric(gsub("[$,]", "", listings$price))
 
 # Server
