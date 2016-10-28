@@ -1,5 +1,6 @@
 if(!require(tidyverse)) install.packages("tidyverse")
 if(!require(leaflet)) install.packages("leaflet")
+if(!require(shiny)) install.packages("shiny")
 
 library(tidyverse)
 library(leaflet)
