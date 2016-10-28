@@ -11,6 +11,7 @@ library(shiny)
 # Read in data, clean price field
 listings <- read_csv("./data/listings.csv")
 listings$price <- as.numeric(gsub("[$,]", "", listings$price))
+pal <- colorFactor(topo.colors(3), listings$room_type, n = 3)
 
 # Server
 server <- function(input, output) {
@@ -31,7 +32,8 @@ server <- function(input, output) {
       addCircleMarkers(data = df(),
                        weight = 1,
                        color = "black",
-                       fillColor = "blue",
+                       fillColor = ~pal(room_type),
+                       fillOpacity = 1,
                        popup = ~paste0("<img src='",thumbnail_url,"'</img></br>",
                                        "<b><a href='",listing_url,"' target='_blank'>",name,"</a></b></br>",
                                        "Host: ",host_name,"</br>",
@@ -40,8 +42,9 @@ server <- function(input, output) {
                                        "Bathrooms: ",bathrooms,"</br>",
                                        "Price: ",price, "</br>",
                                        "Rating: ", review_scores_rating
-                                       )
                        )
+      ) %>%
+      addLegend("bottomleft", pal = pal, values = df()$room_type, opacity = 1)
   })
   
   # Create data table
