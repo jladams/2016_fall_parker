@@ -38,12 +38,18 @@ server <- function(input, output) {
                                        )
                        )
   })
+  
+  output$table <- renderDataTable({df()})
+  
 }
   
 ui <- fluidPage(
   title = "Airbnb Boston",
   titlePanel("Airbnb Boston"),
-  leafletOutput("map"),
+  tabsetPanel(
+    tabPanel("Map", leafletOutput("map")),
+    tabPanel("Data", dataTableOutput("table"))
+    ),
   hr(),
   fluidRow(
     column(4,
