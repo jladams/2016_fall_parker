@@ -1,3 +1,5 @@
+
+# Install and load required packagess
 if(!require(tidyverse)) install.packages("tidyverse")
 if(!require(leaflet)) install.packages("leaflet")
 if(!require(shiny)) install.packages("shiny")
@@ -6,21 +8,23 @@ library(tidyverse)
 library(leaflet)
 library(shiny)
 
+# Read in data, clean price field
 listings <- read_csv("../data/listings.csv")
 listings$price <- as.numeric(gsub("[$,]", "", listings$price))
-# listings$weekly_price <- as.numeric(gsub("[$,]", "", listings$weekly_price))
 
-
+# Server
 server <- function(input, output) {
   
+  # Create reactive data frame from listings that match filter criteria
   df <- reactive({
     df <- listings %>%
-      filter((price >= input$minPrice & price <= input$maxPrice) & 
+      filter((price >= input$minPrice & price <= input$maxPrice) &
                (review_scores_rating >= input$ratingFilter[1] & review_scores_rating <= input$ratingFilter[2]) &
                (bedrooms %in% input$bedroomFilter)
              )
   })
   
+  # Create Map output using same parameters from other Leaflet file, but with reactive data
   output$map <- renderLeaflet({
     leaflet() %>%
       addTiles() %>%
@@ -40,12 +44,14 @@ server <- function(input, output) {
                        )
   })
   
+  # Create data table
   output$table <- renderDataTable({df()})
   
 }
 
 #========================================================
 
+# UI
 ui <- fluidPage(
   title = "Airbnb Boston",
   titlePanel("Airbnb Boston"),
@@ -55,6 +61,7 @@ ui <- fluidPage(
     ),
   hr(),
   fluidRow(
+    # Price Filter
     column(4,
            h3("Filter by Price"),
            column(6,
@@ -64,17 +71,19 @@ ui <- fluidPage(
                   numericInput("maxPrice", "Maximum Price:", value = 4000)
                   )
            ),
+    # Rating Filter
     column(4,
            h3("Filter by Rating"),
            sliderInput('ratingFilter', "Rating:",
                        min = 1, max = 100, value = c(1, 100)
                        )
            ),
+    # Bedrooms filter, leave out NA
     column(4,
            h3("Filter by Bedrooms"),
            checkboxGroupInput('bedroomFilter', "Bedrooms:",
-                              choices = c("5" = 5, "4" = 4, "3" = 3, "2" = 2, "1" = 1, "0" = 0, "NA" = NA),
-                              selected = c("5" = 5, "4" = 4, "3" = 3, "2" = 2, "1" = 1, "0" = 0, "NA" = NA)
+                              choices = c("5" = 5, "4" = 4, "3" = 3, "2" = 2, "1" = 1, "0" = 0),
+                              selected = c("5" = 5, "4" = 4, "3" = 3, "2" = 2, "1" = 1, "0" = 0)
                               )
            )
   )
@@ -82,6 +91,6 @@ ui <- fluidPage(
   
 )
 
- 
+# Run app
 shinyApp(server = server, ui = ui) 
 
