@@ -9,7 +9,7 @@ library(shiny)
 
 # Read in data, clean price field
 # listings <- read_csv("./data/listings.csv")
-listings <- read_csv("http://bit.ly/fall_parker_data")
+listings <- read_csv("http://dartgo.org/spring_parker_data")
 listings$price <- as.numeric(gsub("[$,]", "", listings$price))
 
 pal <- colorFactor(topo.colors(3), listings$room_type, n = 3)
