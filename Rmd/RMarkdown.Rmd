@@ -254,12 +254,6 @@ print(x.split(' '))
 ```
 
 
-### Bash
-```{bash}
-pwd
-```
-
-
 ## Footnotes
 
 Here's a footnote,[^1] and a second one. [^longnamednote]
@@ -275,5 +269,10 @@ Here's a footnote,[^1] and a second one. [^longnamednote]
 
 [^longnamednote]: Here's the other.
 ```
+
+## Source
+The Rmd used to produce this can be found [here](https://raw.githubusercontent.com/jladams/parker/master/Rmd/RMarkdown.Rmd).
+
+
 
 
