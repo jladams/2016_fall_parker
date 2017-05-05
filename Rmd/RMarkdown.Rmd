@@ -1,0 +1,279 @@
+---
+title: "RMarkdown"
+author: "James L. Adams"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Installation
+
+```{r installation, eval=FALSE}
+install.packages("rmarkdown")
+
+## This one's just for making plots later
+install.packages("gapminder")
+```
+
+# Syntax
+## Headers
+
+# Header 1
+
+```
+# Header 1
+```
+
+## Header 2
+
+```
+## Header 2
+```
+
+### Header 3
+
+```
+### Header 3
+```
+
+#### Header 4
+
+```
+#### Header 4
+```
+
+##### Header 5
+
+```
+##### Header 5
+```
+
+###### Header 6
+
+```
+###### Header 6
+```
+
+## Text Styles
+
+> block quote
+
+```
+> block quote
+```
+
+**Bold**
+
+```
+**Bold**
+```
+
+*Italic*
+
+```
+*Italic*
+```
+
+endash: --
+
+```
+endash: --
+```
+
+emdash: ---
+
+```
+emdash: ---
+```
+
+inline equation (using $LaTeX$): $A = \pi*r^{2}$
+
+```
+inline equation (using $LaTeX$): $A = \pi*r^{2}$
+```
+
+Subscripts ~Hello!~ and superscripts ^Hello!^ are easy.
+
+```
+Subscripts ~Hello!~ and superscripts ^Hello!^ are easy.
+```
+
+[Here's a link](https://www.google.com)
+
+```
+[Here's a link](https://www.google.com)
+```
+
+## Images
+
+image: ![](https://s-media-cache-ak0.pinimg.com/originals/1d/96/13/1d96138537ae93c28554fa623f56a527.gif)
+
+```
+image: ![](https://s-media-cache-ak0.pinimg.com/originals/1d/96/13/1d96138537ae93c28554fa623f56a527.gif)
+```
+
+## Lists
+
+* unordered list
+* number 2
+    + sub-item (four spaces)
+
+
+```
+* unordered list
+* number 2
+  + sub-item (four spaces)
+```
+
+1. ordered list
+2. item 2
+    + sub-item (four spaces)
+
+
+```
+1. ordered list
+2. item 2
+    + sub-item (four spaces)
+```
+
+## Tables
+
+The default rendering is as you would see in the R terminal:
+```{r}
+head(mtcars)
+```
+
+
+You can use other styles, including interactive tables when knitting to HTML. Here's one using a knitr kable:
+```{r}
+knitr::kable(head(mtcars))
+```
+
+
+## Code    
+
+Here's a piece of `inline code` to look at.
+
+```
+Here's a piece of `inline code` to look at.
+```
+
+Here is a piece of inline R code: `r sum(3, 7)`
+
+```{r eval = FALSE}
+Here is a piece of inline R code: `r sum(3, 7)`
+```
+
+
+    ```
+    Code chunks are delineated by three backticks
+    ```
+
+```{r}
+# R Code goes here!!
+```
+
+```{r echo = FALSE}
+# This won't show up
+```
+
+```{r}
+# This will generate output
+summary(cars)
+```
+
+
+```{r eval = FALSE}
+# Including "eval = FALSE" means this code will not run
+summary(cars)
+```
+
+## Plots
+```{r}
+# Throw some plots in:
+library(ggplot2)
+library(gapminder)
+
+ggplot(gapminder, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point(aes(color = continent))
+
+```
+
+
+```{r}
+# Reproducible reports for when your data changes:
+library(MASS)
+library(ggplot2)
+set.seed(42)
+
+df <- data.frame(mvrnorm(500, mu = c(0,0), Sigma = matrix(c(1,0.56,0.56,1), ncol = 2),
+               empirical = TRUE))
+
+head(df)
+
+ggplot(df, aes(x = X1, y = X2)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+
+```
+
+```{r}
+set.seed(500)
+
+df <- data.frame(mvrnorm(500, mu = c(0,0), Sigma = matrix(c(1,0.56,0.56,1), ncol = 2),
+               empirical = TRUE))
+
+head(df)
+
+ggplot(df, aes(x = X1, y = X2)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+
+## Other Languages
+Code chunks can be in other languages including:
+
+* Python
+* SQL
+* Bash
+* Rcpp
+* Stan
+* JavaScript
+* CSS
+
+### Python
+```{python}
+x = 'hello, world!'
+print(x.split(' '))
+```
+
+
+### Bash
+```{bash}
+pwd
+```
+
+
+## Footnotes
+
+Here's a footnote,[^1] and a second one. [^longnamednote]
+
+[^1]: Here's the first footnote.
+
+[^longnamednote]: Here's the other.
+
+```
+Here's a footnote,[^1] and a second one. [^longnamednote]
+
+[^1]: Here's the first footnote.
+
+[^longnamednote]: Here's the other.
+```
+
+

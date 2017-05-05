@@ -91,7 +91,9 @@ ui <- fluidPage(
                               selected = c("5" = 5, "4" = 4, "3" = 3, "2" = 2, "1" = 1, "0" = 0)
                               )
            )
-  )
+  ),
+  hr(),
+  fluidRow(p("Data from ", a("Inside Airbnb", href = "http://www.insideairbnb.com", target = "_blank")))
   
   
 )
