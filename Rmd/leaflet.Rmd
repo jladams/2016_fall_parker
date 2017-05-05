@@ -3,6 +3,8 @@ title: "Leaflet Code, Spring 2017"
 output: html_document
 ---
 
+This is the code and output for an instruction session on how to use the [leaflet](https://rstudio.github.io/leaflet/) R package to create interactive maps. 
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
@@ -12,7 +14,6 @@ knitr::opts_chunk$set(echo = TRUE)
 # Load in packages
 library(tidyverse)
 library(leaflet)
-library(shiny)
 ```
 
 ## Leaflet
@@ -39,11 +40,11 @@ leaflet() %>%
   addProviderTiles("Stamen.TonerLabels")
 ```
 
-### Load in data
+### Load in data[^1]
 ```{r data}
 # Let's try adding markers
-# Get data from Airbnb
-listings <- read_csv("http://bit.ly/fall_parker_data")
+# Get Airbnb Data
+listings <- read_csv("../data/listings.csv")
 
 # Get rid of commas and dollar signs, make price numeric
 listings$price <- as.numeric(gsub("[$,]", "", listings$price))
@@ -142,3 +143,6 @@ leaflet() %>%
                    ) %>%
   addLegend("bottomleft", pal = pal, values = listings$room_type, opacity = 1)
 ```
+
+
+[^1]:Data from [Inside Airbnb](http://www.insideairbnb.com)
