@@ -5,7 +5,7 @@ library(shiny)
 
 # Read in data, clean price field
 # listings <- read_csv("./data/listings.csv")
-listings <- read_csv("http://dartgo.org/spring_parker_data")
+listings <- read_csv("./data/listings.csv")
 listings$price <- as.numeric(gsub("[$,]", "", listings$price))
 
 pal <- colorFactor(topo.colors(3), listings$room_type, n = 3)
@@ -18,7 +18,7 @@ server <- function(input, output) {
     df <- listings %>%
       filter((price >= input$minPrice & price <= input$maxPrice) &
                (review_scores_rating >= input$ratingFilter[1] & review_scores_rating <= input$ratingFilter[2]) &
-               (bedrooms %in% input$bedroomFilter)
+               (room_type %in% input$typeFilter)
              )
   })
   
@@ -79,12 +79,12 @@ ui <- fluidPage(
                        min = 1, max = 100, value = c(1, 100)
                        )
            ),
-    # Bedrooms filter, leave out NA
+    # Listing Type Filter filter, leave out NA
     column(4,
-           h3("Filter by Bedrooms"),
-           checkboxGroupInput('bedroomFilter', "Bedrooms:",
-                              choices = c("5" = 5, "4" = 4, "3" = 3, "2" = 2, "1" = 1, "0" = 0),
-                              selected = c("5" = 5, "4" = 4, "3" = 3, "2" = 2, "1" = 1, "0" = 0)
+           h3("Filter by Listing Type"),
+           checkboxGroupInput('typeFilter', "Type:",
+                              choices = c(unique(listings$room_type)),
+                              selected = c(unique(listings$room_type))
                               )
            )
   ),
