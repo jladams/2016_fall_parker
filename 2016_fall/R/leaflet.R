@@ -12,19 +12,19 @@ leaflet() %>%
 
 # We could try provider tiles, using list from: http://leaflet-extras.github.io/leaflet-providers/preview/index.html
 leaflet() %>%
-  addProviderTiles("Stamen.Toner")
+  addProviderTiles(providers$Stamen.Toner)
 
 leaflet() %>%
-  addProviderTiles("CartoDB.Positron")
+  addProviderTiles(providers$CartoDB.Positron)
 
 # Try stacking them up:
 leaflet() %>%
-  addProviderTiles("Esri.WorldShadedRelief") %>%
-  addProviderTiles("Stamen.TonerLabels")
+  addProviderTiles(providers$Esri.WorldShadedRelief) %>%
+  addProviderTiles(providers$Stamen.TonerLabels)
 
 # Let's try adding markers
 # Get data from Airbnb
-listings <- read_csv("http://bit.ly/fall_parker_data")
+listings <- read_csv("./data/listings.csv")
 
 # Get rid of commas and dollar signs, make price numeric
 listings$price <- as.numeric(gsub("[$,]", "", listings$price))

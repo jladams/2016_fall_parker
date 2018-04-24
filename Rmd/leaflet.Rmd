@@ -1,5 +1,5 @@
 ---
-title: "Leaflet Code, Spring 2017"
+title: "Leaflet Code, Spring 2018"
 output: html_document
 ---
 
@@ -29,15 +29,15 @@ leaflet() %>%
 ```{r tiles}
 # We could try provider tiles, using list from: http://leaflet-extras.github.io/leaflet-providers/preview/index.html
 leaflet() %>%
-  addProviderTiles("Stamen.Toner")
+  addProviderTiles(providers$Stamen.Toner)
 
 leaflet() %>%
-  addProviderTiles("CartoDB.Positron")
+  addProviderTiles(providers$CartoDB.Positron)
 
 # Try stacking them up:
 leaflet() %>%
-  addProviderTiles("Esri.WorldShadedRelief") %>%
-  addProviderTiles("Stamen.TonerLabels")
+  addProviderTiles(providers$Esri.WorldShadedRelief) %>%
+  addProviderTiles(providers$Stamen.TonerLabels)
 ```
 
 ### Load in data[^1]
