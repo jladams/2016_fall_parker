@@ -1,3 +1,4 @@
+# Beginning of app
 # Install and load required packagess
 library(tidyverse)
 library(leaflet)
